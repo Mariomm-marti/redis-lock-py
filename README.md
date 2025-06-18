@@ -1,3 +1,6 @@
+# Important notice: this is a fork of the original redis-lock-py with fixed mypy types and type definition in redis_lock.asyncio
+# If you ended up here somehow, please go to the original repository instead
+
 [![License](https://img.shields.io/badge/license-MIT-lightgray.svg)](./LICENSE)
 [![PyPI Release](https://img.shields.io/pypi/v/redis-lock-py)](https://pypi.org/project/redis-lock-py/)
 [![Downloads](https://static.pepy.tech/badge/redis-lock-py)](https://pepy.tech/project/redis-lock-py)
