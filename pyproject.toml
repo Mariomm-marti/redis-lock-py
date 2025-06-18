@@ -3,12 +3,13 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "redis-lock-py"
-version = "1.1.1"
+name = "sfmario-redis-lock-py"
+version = "1.2.0"
 authors = [
     { name = "Minjae Park", email = "miintto.log@gmail.com" },
+    { name = "Mario Martin", email = "24687973+Mariomm-marti@users.noreply.github.com" },
 ]
-description = "Redis distributed lock implementation for Python based on Pub/Sub messaging"
+description = "Fork of redis-lock-py with asyncio types"
 readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT"
