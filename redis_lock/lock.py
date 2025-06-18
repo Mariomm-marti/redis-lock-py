@@ -1,7 +1,7 @@
 import time
 from typing import Optional
 
-from redis.client import PubSub
+from redis.client import PubSub, Redis
 
 from redis_lock.base import BaseSyncLock
 from redis_lock.exceptions import LockNotOwnedError
@@ -44,6 +44,7 @@ class RedisLock(BaseSyncLock):
         if self._try_acquire():
             return True
 
+        assert isinstance(self._client, Redis)
         with self._client.pubsub() as pubsub:
             self._subscribe_channel(pubsub)
             stop_trying_at = time.time() + timeout
@@ -61,6 +62,7 @@ class RedisLock(BaseSyncLock):
             bool: `True` if the lock was successfully released,
                 `False` otherwise.
         """
+        assert isinstance(self._client, Redis)
         if not self.lua_release(
             keys=(self.name, self.channel_name),
             args=(self.token, self.unlock_message),

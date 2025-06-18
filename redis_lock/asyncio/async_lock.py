@@ -2,6 +2,7 @@ import time
 from typing import Optional
 
 from redis.asyncio.client import PubSub
+from redis.asyncio.client import Redis as AsyncRedis
 
 from redis_lock.asyncio.base import BaseAsyncLock
 from redis_lock.exceptions import LockNotOwnedError
@@ -44,6 +45,7 @@ class RedisLock(BaseAsyncLock):
         if await self._try_acquire():
             return True
 
+        assert isinstance(self._client, AsyncRedis)
         async with self._client.pubsub() as pubsub:
             await self._subscribe_channel(pubsub)
             stop_trying_at = time.time() + timeout
@@ -61,6 +63,7 @@ class RedisLock(BaseAsyncLock):
             bool: `True` if the lock was successfully released,
                 `False` otherwise.
         """
+        assert isinstance(self._client, AsyncRedis)
         if not await self.lua_release(
             keys=(self.name, self.channel_name),
             args=(self.token, self.unlock_message),
