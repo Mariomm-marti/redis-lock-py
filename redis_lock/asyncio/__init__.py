@@ -1,1 +1,1 @@
-from .async_lock import RedisLock
+from .async_lock import RedisLock as RedisLock
